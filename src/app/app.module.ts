@@ -1,11 +1,11 @@
-import { AuthService } from './shared/services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { AuthGuard } from './shared/services/auth.quard';
-import { SharedModule } from './shared/services/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+
 
 @NgModule({
   declarations: [
@@ -14,9 +14,11 @@ import { SharedModule } from './shared/services/shared.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    SharedModule.forRoot(),
+    BrowserAnimationsModule,
+
+    // SharedModule.forRoot(),
   ],
-  providers: [AuthService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

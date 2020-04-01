@@ -1,0 +1,21 @@
+.signin-content{
+    width: 500px;
+    margin: auto ;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.signin-content-form{
+        display: flex;
+        flex-direction: column;
+    }
+.signin-content-logo{
+        padding-bottom: 20px;
+        font-size: 22px;
+}
+.signin-content-signin{
+        font-size: 16px;
+        padding-top: 20px;
+        text-align: center;
+}

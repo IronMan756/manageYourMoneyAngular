@@ -1,0 +1,56 @@
+<div class="wrapper" *ngIf="form">
+    <div class="signup-content">
+       <form [formGroup]="form" (submit)="signUp()">
+        <mat-card class="signup-content-form">
+          <p class="signup-content-logo">Sign up to continue</p>
+          <mat-form-field>
+            <input matInput formControlName="email" placeholder="Email" />
+            <mat-error
+              *ngIf="form.get('email').invalid && form.get('email').touched"
+              >Email must be a valid email
+            </mat-error>
+            <mat-error *ngIf="getField('email').errors?.required"
+              >Email is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="login"
+              placeholder="Login"
+            />
+            <mat-error *ngIf="getField('login').errors?.required"
+              >Login is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="password" placeholder="Password" />
+            <mat-error *ngIf="getField('password').errors?.required"
+              >Password is required
+            </mat-error>
+            <mat-error *ngIf="getField('password').errors?.minlength">
+              Password must be at least 6 characters
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="cpassword"
+              placeholder="Confirm password"
+            />
+            <mat-error *ngIf="getField('cpassword').errors?.required"
+              >Confirm Password is required</mat-error
+            >
+          </mat-form-field>
+          <button type="submit" [disabled] ="form.invalid" mat-button class="btn">Sign Up</button>
+          <p class="signup-content-signin">
+            Already have an account <a routerLink="/sign-in">Sign in</a>
+          </p>
+        </mat-card>
+      </form>
+    </div>
+  </div>
+  <!-- [disabled]="
+  signupForm.invalid || signupForm.pending || signupForm.pristine
+  " -->
+  
