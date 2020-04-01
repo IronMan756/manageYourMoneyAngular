@@ -19,7 +19,7 @@ export class SignInComponent extends AbstractForm implements OnInit {
      ) {
     super();
   }
-  public user$: Observable<any>;
+  // public user$: Observable<any>;
 
   public ngOnInit(): void {
     this.form = this.fb.group({
@@ -28,16 +28,16 @@ export class SignInComponent extends AbstractForm implements OnInit {
     });
   }
 
-  public signin(): void {
-    console.log({
-          email: this.getField('email').value,
-          password: this.getField('password').value,
-        })
-    // this.store.dispatch(
-    //   signIn({
-    //     email: this.getField('email').value,
-    //     password: this.getField('password').value,
-    //   }),
-    // );
-  }
+  // public signin(): void {
+  //   console.log({
+  //         email: this.getField('email').value,
+  //         password: this.getField('password').value,
+  //       })
+  //   // this.store.dispatch(
+  //   //   signIn({
+  //   //     email: this.getField('email').value,
+  //   //     password: this.getField('password').value,
+  //   //   }),
+  //   // );
+  // }
 }

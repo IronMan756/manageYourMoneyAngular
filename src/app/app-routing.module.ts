@@ -1,32 +1,26 @@
-import { SignInComponent } from './content/sign-in/sign-in.component';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-
-
-import { Routes } from "@angular/router";
-import { AuthGuard } from "./shared/services/auth.quard";
-
-export const routes: Routes = [
+const routes: Routes = [
   {
-    path: "",
-    redirectTo: "backoffice",
-    pathMatch: "full"
+    path: 'sign-in',
+    loadChildren: () =>
+      import('./sign-in/sign-in.module').then(m => m.SignInModule)
   },
   {
-    path: "signin",
-    component: SignInComponent,
-    // loadChildren: " ./content/sign-in/sign-in.module#SignInModule",
-    canActivate: [AuthGuard]
+    path: 'sign-up',
+    loadChildren: () =>
+      import('./sign-up/sign-up.module').then(m => m.SignUpModule)
+  },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
   }
-  // {
-  //   path; '**',
-  // redirectTo: 'backoffice',
-  // }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
