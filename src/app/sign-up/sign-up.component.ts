@@ -1,3 +1,5 @@
+import { AuthService } from './../shared/services/auth.service';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AbstractForm } from '../shared/form-helper';
@@ -9,9 +11,11 @@ import { AbstractForm } from '../shared/form-helper';
 })
 export class SignUpComponent extends AbstractForm implements OnInit {
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public authService: AuthService,
+    public http: HttpClient
   ) {
-    super()
+    super();
    }
 
   public form: FormGroup;
@@ -22,12 +26,17 @@ export class SignUpComponent extends AbstractForm implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6)]],
         cpassword: ['', [Validators.required]],
         login: ['', [Validators.minLength(4)]]
-      },{}
-    )
+      }, {}
+    );
   }
   public signUp(){
-    if( this.form.valid){
-      console.log(this.form.value)
+    if ( this.form.valid){
+      const formValue = {
+        login: this.getField('login').value,
+        email: this.getField('email').value,
+        password: this.getField('cpassword').value
+      };
+      this.authService.signUp( formValue ).subscribe(i => console.log(i));
     }
   }
 }

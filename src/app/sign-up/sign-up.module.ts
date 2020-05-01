@@ -1,3 +1,5 @@
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './../shared/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -30,7 +32,9 @@ import { MatListModule } from '@angular/material/list';
     MatToolbarModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatListModule
-  ]
+    MatListModule,
+    HttpClientModule
+  ],
+  providers: [ AuthService ],
 })
 export class SignUpModule { }
