@@ -3,19 +3,40 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'sign-in',
+    pathMatch: 'full'
+  },
+  {
     path: 'sign-in',
     loadChildren: () =>
-      import('./sign-in/sign-in.module').then(m => m.SignInModule)
+      import('./content/sign-in/sign-in.module').then(
+        mod => mod.SignInModule)
   },
   {
     path: 'sign-up',
     loadChildren: () =>
-      import('./sign-up/sign-up.module').then(m => m.SignUpModule)
+      import('./content/sign-up/sign-up.module').then(
+        mod => mod.SignUpModule)
+  },
+  // {
+  //   path: 'dashboard',
+  //   loadChildren: () =>
+  //     import('./content/dashboard/dashboard.module').then(m => m.DashboardModule)
+  // },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./content/dashboard/dashboard.module').then(
+        (mod) => mod.DashboardModule
+      ),
+    data: {
+      state: 'dashboard',
+    },
   },
   {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
+    path: '**',
+      redirectTo: 'sign-in',
   }
 ];
 

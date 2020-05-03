@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,7 +7,7 @@ import {
   MatDialogModule,
   MAT_DIALOG_DEFAULT_OPTIONS,
 } from '@angular/material/dialog';
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
   MatCardModule,
@@ -22,9 +23,11 @@ import {
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
-  exports:[ CommonModule,
+  exports:[
+    CommonModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
@@ -38,6 +41,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    HttpClientModule
     // BackgroundComponent,
   ],
 })
@@ -46,6 +50,6 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers:[],
-    }
+    };
   }
 }
