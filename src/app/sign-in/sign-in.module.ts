@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { AuthService } from '../shared/services/auth.service';
 // import { MatButtonModule } from '@angular/material/button';
 // import { MatButtonModule } from '@angular/material/button';
 
@@ -33,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
     // MatSnackBarModule,
     // MatSidenavModule,
     // MatListModule
-  ]
+  ],
+  providers: [ AuthService ]
 })
 export class SignInModule { }
