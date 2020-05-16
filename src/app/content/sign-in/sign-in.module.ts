@@ -12,8 +12,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { SharedModule } from '../../shared/services/shared.module';
 import { AuthService } from '../../shared/services/auth.service';
+import { SharedModule } from '../../shared/shared.module';
 // import { MatButtonModule } from '@angular/material/button';
 // import { MatButtonModule } from '@angular/material/button';
 

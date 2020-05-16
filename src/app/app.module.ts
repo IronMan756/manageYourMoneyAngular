@@ -6,10 +6,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store, StoreModule } from '@ngrx/store';
 import { checkLogin } from './store/actions/auth.actions';
-import { SharedModule } from './shared/services/shared.module';
 import { reducers, CustomRouterSerializer } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { SharedModule } from './shared/shared.module';
 
 
 
