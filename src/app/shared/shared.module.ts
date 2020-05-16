@@ -63,22 +63,6 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        // CategoriesService,
-        // CartGuard,
-        // LocalStorageService,
-        // {
-        //   provide: APP_INITIALIZER,
-        //   useFactory: (
-        //     // tslint:disable-next-line: no-any
-        //     store: Store<any>,
-        //     localStorageService: LocalStorageService
-        //   ) => () => {
-        //     const products = localStorageService.getFromLocalStorage('cart');
-        //     store.dispatch(addAllProductsToCart({ products }));
-        //   },
-        //   multi: true,
-        //   deps: [Store, LocalStorageService],
-        // },
         {
           provide: BASE_URL_TOKEN,
           useValue: environment.baseUrl,
