@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "manageYourMoney1"
+  "defaultProject": "manageYourMoney1",
+  "cli": {
+    "analytics": false
+  }
 }
