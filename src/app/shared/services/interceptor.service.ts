@@ -34,7 +34,6 @@ export class InterceptorService implements HttpInterceptor {
       headers,
       url: `${this._baseUrl}${req.url}`,
     });
-    console.log('1458')
     return next.handle(jsonReq).pipe(
       filter(this._isHttpResponse),
       map((res: HttpResponse<IRes>) => {
