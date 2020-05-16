@@ -21,7 +21,7 @@ export class SignInComponent extends AbstractForm implements OnInit  {
   ){
     super();
    }
-
+  // it works
   public ngOnInit(): void {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
