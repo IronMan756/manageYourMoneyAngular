@@ -4,7 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { Store, StoreModule } from '@ngrx/store';
+import { checkLogin } from './store/actions/auth.actions';
+import { SharedModule } from './shared/services/shared.module';
+import { reducers, CustomRouterSerializer } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 
 
@@ -16,11 +21,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
-
-    // SharedModule.forRoot(),
+    HttpClientModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+    }),
+    StoreRouterConnectingModule.forRoot({
+      serializer: CustomRouterSerializer,
+    }),
+    SharedModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export function initApp(store: Store<any>
+  // It should make interface IStore
+  ) {
+  return () => store.dispatch(checkLogin());
+}
