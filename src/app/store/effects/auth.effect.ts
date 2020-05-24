@@ -13,6 +13,8 @@ import {
 } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { signInPending } from '../actions/auth.actions';
+import { RouterEffects } from './router.effect';
+import { go } from '../actions/router.actions';
 // import { IStore } from '../reducers';
 
 @Injectable()
@@ -20,6 +22,7 @@ export class AuthEffects {
   constructor(
     private actions: Actions,
     private snackBar: MatSnackBar,
+    private routerEffects: RouterEffects,
     private authService: AuthService,
     private store: Store< any
     // IStore
@@ -98,17 +101,23 @@ export class AuthEffects {
   @Effect()
   public signIn: Observable<any> = this.actions.pipe(
     ofType(signInPending),
-    // map(action => action.payload),
-    switchMap( ({payload}) =>
+    switchMap( ( payload: any) =>
         this.authService.signIn( payload )
         .pipe(
           map((data: any) => {
-            console.log(data);
             return signInSuccess( data );
           })
       ),
-      ),
-    catchError(err => of(signInError(err))),
+    ),
+    catchError(err => of(signInError(err),  console.log(err))),
+  );
+  @Effect()
+  public signInSuccess: Observable<any> = this.actions.pipe(
+    ofType(signInSuccess),
+
+      map(() => {
+        return go({path:['dashboard']});
+      }),    
   );
   // @Effect({ dispatch: false })
   // public updateUser: Observable<void> = this.actions.pipe(
