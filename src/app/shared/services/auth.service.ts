@@ -5,11 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ILogIn } from '../interfaces/log-in.interface';
 @Injectable()
 export class AuthService {
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
   constructor(
     // public jwtHelper: JwtHelperService,
     public http: HttpClient
@@ -22,9 +17,13 @@ export class AuthService {
   //   return !this.jwtHelper.isTokenExpired(token);
   // }
   public signUp(value: any): Observable<any>{
-    return this.http.post('http://localhost:8090/auth/sign-up', value, this.httpOptions);
+    return this.http.post('/auth/sign-up', value);
   }
-  public signIn(formValue: ILogIn ){
-    return this.http.post('http://localhost:8090/auth/sign-in', formValue, this.httpOptions);
+  public signIn(value: any ){
+    const formValue = {
+      email: value.email,
+      password: value.password
+    }
+    return this.http.post('/auth/sign-in', formValue);
   }
 }

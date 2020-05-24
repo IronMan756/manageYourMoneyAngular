@@ -10,6 +10,8 @@ import { reducers, CustomRouterSerializer } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { SharedModule } from './shared/shared.module';
+import { EffectsModule } from '@ngrx/effects';
+import { effects } from './store/effects';
 
 
 
@@ -30,6 +32,7 @@ import { SharedModule } from './shared/shared.module';
       serializer: CustomRouterSerializer,
     }),
     SharedModule.forRoot(),
+    EffectsModule.forRoot(effects)
   ],
   providers: [],
   bootstrap: [AppComponent]

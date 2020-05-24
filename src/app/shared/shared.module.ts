@@ -22,6 +22,8 @@ import {
 import { BASE_URL_TOKEN } from '../../config';
 import { environment } from '../../environments/environment';
 import { InterceptorService } from './services/interceptor.service';
+import { AuthService } from './services/auth.service';
+import { RouterEffects } from '../store/effects/router.effect';
 
 @NgModule({
   declarations: [],
@@ -63,6 +65,8 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        AuthService,
+        RouterEffects,
         {
           provide: BASE_URL_TOKEN,
           useValue: environment.baseUrl,
