@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IAuth } from '../reducers/auth.reducer';
 
-export const signUp = createAction('[Auth] SignUp', (payload: any) => ({
+export const signUpPending = createAction('[Auth] SignUp', (payload: any) => ({
   payload,
 }));
 export const checkLogin = createAction(
@@ -26,12 +26,12 @@ export const signInPending = createAction(
 
 export const signInSuccess = createAction(
   '[Auth] Sign In Success',
-  props<{ auth: IAuth }>()
+  props<{ authorased: boolean }>()
 );
 
 export const signInError = createAction(
   '[Auth] Sign In Error',
-  (payload?: any) => payload
+  props<{ error: any }>()
 );
 
 export const authenticated = createAction(

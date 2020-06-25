@@ -14,6 +14,8 @@ import {
 
 import { MatSnackBar } from '@angular/material';
 import { signInPending } from '../actions/auth.actions';
+import { RouterEffects } from './router.effect';
+import { go } from '../actions/router.actions';
 // import { IStore } from '../reducers';
 
 @Injectable()
@@ -21,6 +23,7 @@ export class AuthEffects {
   constructor(
     private actions: Actions,
     private snackBar: MatSnackBar,
+    private routerEffects: RouterEffects,
     private authService: AuthService,
     private store: Store<
       any
@@ -119,7 +122,7 @@ export class AuthEffects {
       (payload: any) => {
         return this.authService.signIn(payload).pipe(
           map((auth: any) => {
-            return signInSuccess({auth});
+            return null;
           })
         );
       }

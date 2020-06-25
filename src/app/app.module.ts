@@ -32,6 +32,7 @@ import { effects } from './store/effects';
       serializer: CustomRouterSerializer,
     }),
     SharedModule.forRoot(),
+    EffectsModule.forRoot(effects)
   ],
   providers: [],
   bootstrap: [AppComponent]
