@@ -1,14 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpHandler } from '@angular/common/http';
 import {
-  HttpEvent,
-  HttpHeaders,
-  HttpInterceptor,
-  HttpRequest,
-  HttpResponse,
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse,
+    HttpHandler,
+    HttpEvent,
+    HttpErrorResponse,
+    HttpHeaders
 } from '@angular/common/http';
-import { filter, map, catchError } from 'rxjs/operators';
-import { Observable, EMPTY } from 'rxjs';
+
+import { Observable, throwError, EMPTY } from 'rxjs';
+import { map, catchError, filter } from 'rxjs/operators';
 import { BASE_URL_TOKEN } from '../../../config';
 
 
@@ -26,6 +28,18 @@ export class InterceptorService implements HttpInterceptor {
     req: HttpRequest<T>,
     next: HttpHandler
   ): Observable<HttpResponse<T>> {
+
+    // const token: string = localStorage.getItem('token');
+
+    // const request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+
+    // const request2 = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+    const headers2 =  req.headers.set('Content-Type', 'application/json');
+    const request = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+
+
+
+
     const headers: HttpHeaders = req.headers.append(
       'Content-Type',
       'application/json'

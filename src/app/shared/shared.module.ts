@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -29,7 +30,7 @@ import { InterceptorService } from './services/interceptor.service';
     CommonModule,
     HttpClientModule
   ],
-  exports:[
+  exports: [
     CommonModule,
     MatCardModule,
     MatInputModule,
@@ -56,6 +57,7 @@ import { InterceptorService } from './services/interceptor.service';
       useClass: InterceptorService,
       multi: true,
     },
+    AuthService
   ],
 })
 export class SharedModule {

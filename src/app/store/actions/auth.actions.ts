@@ -21,7 +21,6 @@ export const signUpError = createAction(
 
 export const signInPending = createAction(
   '[Auth] Sign In Pending',
-  // (payload: any) => ({ payload }));
   props<{payload: any}>()
 );
 
