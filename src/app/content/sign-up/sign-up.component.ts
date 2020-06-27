@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AbstractForm } from '../../shared/services/form-helper';
 import { AuthService } from '../../shared/services/auth.service';
 import { Store } from '@ngrx/store';
-import { signUpSuccess } from '../../store/actions/auth.actions';
+import { signUpPending } from '../../store/actions/auth.actions';
 
 
 @Component({
@@ -39,8 +38,7 @@ export class SignUpComponent extends AbstractForm implements OnInit {
         email: this.getField('email').value,
         password: this.getField('cpassword').value
       };
-      // this.store.dispatch(signUpPending(formValue))   ??????
-      // this.authService.signUp( formValue ).subscribe(data => console.log(i, i.error));
+      this.store.dispatch(signUpPending(formValue));
     }
   }
 }

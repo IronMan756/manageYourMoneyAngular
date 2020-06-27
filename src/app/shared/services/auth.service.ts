@@ -4,13 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ILogIn } from '../interfaces/log-in.interface';
 @Injectable()
 export class AuthService {
-  // private httpOptions = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json'
-  //   })
-  // };
+
   constructor(
-    // public jwtHelper: JwtHelperService,
     public http: HttpClient
     ) {}
 
@@ -22,6 +17,7 @@ export class AuthService {
     return true;
   }
   public signUp(value: any): Observable<any>{
+    console.log(value)
     return this.http.post('/auth/sign-up', value);
   }
   public signIn(formValue: ILogIn ){
