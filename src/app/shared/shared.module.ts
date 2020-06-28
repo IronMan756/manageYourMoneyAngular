@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,8 +23,9 @@ import {
 import { BASE_URL_TOKEN } from '../../config';
 import { environment } from '../../environments/environment';
 import { InterceptorService } from './services/interceptor.service';
-import { AuthService } from './services/auth.service';
 import { RouterEffects } from '../store/effects/router.effect';
+import { ExpencesService } from './services/expences.service';
+import { JwtService } from './services/jwt.service';
 
 @NgModule({
   declarations: [],
@@ -31,7 +33,7 @@ import { RouterEffects } from '../store/effects/router.effect';
     CommonModule,
     HttpClientModule
   ],
-  exports:[
+  exports: [
     CommonModule,
     MatCardModule,
     MatInputModule,
@@ -58,6 +60,9 @@ import { RouterEffects } from '../store/effects/router.effect';
       useClass: InterceptorService,
       multi: true,
     },
+    AuthService,
+    ExpencesService,
+    JwtService
   ],
 })
 export class SharedModule {

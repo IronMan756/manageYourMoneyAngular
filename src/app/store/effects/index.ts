@@ -1,4 +1,7 @@
-import { AuthEffects } from "./auth.effect";
-import { RouterEffects } from "./router.effect";
+import { AuthEffects } from './auth.effect';
+import { ExpencesEffects } from './expences.effects';
 
-export const effects = [AuthEffects,RouterEffects]
+export const effects = [
+    AuthEffects,
+    ExpencesEffects
+]

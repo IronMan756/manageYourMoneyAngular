@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { getExpencesPending } from './../../store/actions/expences.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AbstractForm } from '../../shared/services/form-helper';
-import { AuthService } from '../../shared/services/auth.service';
 import { Store } from '@ngrx/store';
 import { signInPending } from '../../store/actions/auth.actions';
 import { go } from '../../store/actions/router.actions';
@@ -17,7 +16,6 @@ export class SignInComponent extends AbstractForm implements OnInit  {
   public form: FormGroup;
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private store: Store,
   ){
     super();
@@ -29,13 +27,15 @@ export class SignInComponent extends AbstractForm implements OnInit  {
       password: ['', Validators.required],
     });
   }
+  public clic(){
+    console.log('Expences');
+    this.store.dispatch(getExpencesPending())
+ 
+  }
   public signin(){
     if ( this.form.valid){
-      const formValue: any = {
-        email: this.getField('email').value,
-        password: this.getField('password').value
-      }
-      this.store.dispatch(signInPending(formValue));
+      this.store.dispatch(signInPending(this.form.value));
+
     }
   }
 }

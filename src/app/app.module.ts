@@ -23,8 +23,8 @@ import { effects } from './store/effects';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
     }),

@@ -1,16 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpHandler } from '@angular/common/http';
 import {
-  HttpEvent,
-  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
   HttpResponse,
+  HttpHandler,
+  HttpEvent,
+  HttpHeaders,
 } from '@angular/common/http';
-import { filter, map, catchError } from 'rxjs/operators';
-import { Observable, EMPTY } from 'rxjs';
-import { BASE_URL_TOKEN } from '../../../config';
 
+import { Observable, throwError, EMPTY } from 'rxjs';
+import { map, catchError, filter } from 'rxjs/operators';
+import { BASE_URL_TOKEN } from '../../../config';
 
 export interface IRes {
   // tslint:disable-next-line: no-any
@@ -19,22 +19,37 @@ export interface IRes {
 }
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
-  // tslint:disable-next-line: variable-name
   constructor(@Inject(BASE_URL_TOKEN) private _baseUrl: string) {}
-
+  public jsonReq: HttpRequest<any>;
   public intercept<T extends IRes>(
     req: HttpRequest<T>,
     next: HttpHandler
   ): Observable<HttpResponse<T>> {
-    const headers: HttpHeaders = req.headers.append(
-      'Content-Type',
-      'application/json'
-    );
-    const jsonReq: HttpRequest<T> = req.clone({
-      headers,
-      url: `${this._baseUrl}${req.url}`,
-    });
-    return next.handle(jsonReq).pipe(
+    const token: string = localStorage.getItem('Token');
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      this.jsonReq = req.clone({
+        url: `${this._baseUrl}${req.url}`,
+      });
+    } else {
+      const headers: HttpHeaders = req.headers.append(
+        'Content-Type',
+        'application/json'
+      );
+      req = req.clone({
+        headers: req.headers.set('Accept', 'application/json'),
+      });
+      this.jsonReq = req.clone({
+        headers,
+        url: `${this._baseUrl}${req.url}`,
+      });
+    }
+
+    return next.handle(this.jsonReq).pipe(
       filter(this._isHttpResponse),
       map((res: HttpResponse<IRes>) => {
         return res.clone({ body: res.body && res.body.data });
