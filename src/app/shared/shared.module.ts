@@ -24,6 +24,8 @@ import { BASE_URL_TOKEN } from '../../config';
 import { environment } from '../../environments/environment';
 import { InterceptorService } from './services/interceptor.service';
 import { RouterEffects } from '../store/effects/router.effect';
+import { ExpencesService } from './services/expences.service';
+import { JwtService } from './services/jwt.service';
 
 @NgModule({
   declarations: [],
@@ -58,7 +60,9 @@ import { RouterEffects } from '../store/effects/router.effect';
       useClass: InterceptorService,
       multi: true,
     },
-    AuthService
+    AuthService,
+    ExpencesService,
+    JwtService
   ],
 })
 export class SharedModule {

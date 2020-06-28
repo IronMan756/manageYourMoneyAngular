@@ -1,5 +1,6 @@
+import { ExpencesService } from './../../shared/services/expences.service';
 import { ILogIn } from './../../shared/interfaces/log-in.interface';
-import { signInSuccess, signInError, signUpPending, signUpSuccess } from './../actions/auth.actions';
+import { signInSuccess, signInError, signUpPending, signUpSuccess, signUpError } from './../actions/auth.actions';
 import { AuthService } from './../../shared/services/auth.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
@@ -17,6 +18,7 @@ import { MatSnackBar } from '@angular/material';
 import { signInPending } from '../actions/auth.actions';
 import { RouterEffects } from './router.effect';
 import { go } from '../actions/router.actions';
+import { JwtService } from '../../shared/services/jwt.service';
 // import { IStore } from '../reducers';
 
 @Injectable()
@@ -26,6 +28,7 @@ export class AuthEffects {
     private snackBar: MatSnackBar,
     private routerEffects: RouterEffects,
     private authService: AuthService,
+    private jwtService: JwtService,
     private store: Store<
       any
       // IStore
@@ -102,13 +105,13 @@ export class AuthEffects {
   //   catchError(err => of(signUpError(err))),
   // );
 @Effect()
-public signIn: Observable<any> = this.actions.pipe(
+public signIn$: Observable<any> = this.actions.pipe(
   ofType(signInPending),
   switchMap(({payload}) =>
     this.authService.signIn(payload).pipe(
       map((data: any) => {
-        console.log(data);
-        return signInSuccess(data);
+      this.jwtService.createToken(data.token);
+      return signInSuccess(data);
       })
     )
   ),
@@ -143,7 +146,8 @@ public signUp$: Observable<Action> = this.actions.pipe(
       }
       )
     );
-  })
+  }),
+  catchError((err) => of(signUpError(err)))
 );
   // @Effect({ dispatch: false })
   // public updateUser: Observable<void> = this.actions.pipe(

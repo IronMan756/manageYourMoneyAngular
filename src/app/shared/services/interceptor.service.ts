@@ -1,18 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
 import {
-    HttpInterceptor,
-    HttpRequest,
-    HttpResponse,
-    HttpHandler,
-    HttpEvent,
-    HttpErrorResponse,
-    HttpHeaders
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+  HttpHandler,
+  HttpEvent,
+  HttpHeaders,
 } from '@angular/common/http';
 
 import { Observable, throwError, EMPTY } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { BASE_URL_TOKEN } from '../../../config';
-
 
 export interface IRes {
   // tslint:disable-next-line: no-any
@@ -21,34 +19,37 @@ export interface IRes {
 }
 @Injectable()
 export class InterceptorService implements HttpInterceptor {
-  // tslint:disable-next-line: variable-name
   constructor(@Inject(BASE_URL_TOKEN) private _baseUrl: string) {}
-
+  public jsonReq: HttpRequest<any>;
   public intercept<T extends IRes>(
     req: HttpRequest<T>,
     next: HttpHandler
   ): Observable<HttpResponse<T>> {
+    const token: string = localStorage.getItem('Token');
+    if (token) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      this.jsonReq = req.clone({
+        url: `${this._baseUrl}${req.url}`,
+      });
+    } else {
+      const headers: HttpHeaders = req.headers.append(
+        'Content-Type',
+        'application/json'
+      );
+      req = req.clone({
+        headers: req.headers.set('Accept', 'application/json'),
+      });
+      this.jsonReq = req.clone({
+        headers,
+        url: `${this._baseUrl}${req.url}`,
+      });
+    }
 
-    // const token: string = localStorage.getItem('token');
-
-    // const request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
-
-    // const request2 = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
-    const headers2 =  req.headers.set('Content-Type', 'application/json');
-    const request = req.clone({ headers: req.headers.set('Accept', 'application/json') });
-
-
-
-
-    const headers: HttpHeaders = req.headers.append(
-      'Content-Type',
-      'application/json'
-    );
-    const jsonReq: HttpRequest<T> = req.clone({
-      headers,
-      url: `${this._baseUrl}${req.url}`,
-    });
-    return next.handle(jsonReq).pipe(
+    return next.handle(this.jsonReq).pipe(
       filter(this._isHttpResponse),
       map((res: HttpResponse<IRes>) => {
         return res.clone({ body: res.body && res.body.data });

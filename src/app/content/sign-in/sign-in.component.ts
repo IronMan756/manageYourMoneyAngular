@@ -1,3 +1,4 @@
+import { getExpencesPending } from './../../store/actions/expences.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AbstractForm } from '../../shared/services/form-helper';
@@ -26,8 +27,15 @@ export class SignInComponent extends AbstractForm implements OnInit  {
       password: ['', Validators.required],
     });
   }
+  public clic(){
+    console.log('Expences');
+    this.store.dispatch(getExpencesPending())
+ 
+  }
   public signin(){
     if ( this.form.valid){
-      this.store.dispatch(signInPending(this.form.value));    }
+      this.store.dispatch(signInPending(this.form.value));
+
+    }
   }
 }

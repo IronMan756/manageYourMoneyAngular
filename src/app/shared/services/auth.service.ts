@@ -17,11 +17,10 @@ export class AuthService {
     return true;
   }
   public signUp(value: any): Observable<any>{
-    console.log(value)
     return this.http.post('/auth/sign-up', value);
   }
   public signIn(formValue: ILogIn ){
-    console.log('formValue in sign in service', formValue);
+    console.log(formValue)
     return this.http.post('/auth/sign-in', formValue);
   }
 }
