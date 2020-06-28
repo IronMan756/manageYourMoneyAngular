@@ -7,13 +7,16 @@ export interface IAuth {
     email?: string;
     name?: string;
     bg_img?: string;
-    authorized?:boolean
+    token?: string;
 }
 export const authReducer = createReducer(
+    {
+        loading: false,
+      },
     on(signUpPending, (state: any) => ({
         ...state, loading: true
     })),
-    on(signInSuccess, (state: any, payload) => ({
-        ...state, loading: false, authorized: payload.authorased
+    on(signInSuccess, (state: any,  {token} ) => ({
+        ...state, loading: false, token
     })),
 );

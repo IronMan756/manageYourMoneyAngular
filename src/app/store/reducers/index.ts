@@ -6,6 +6,7 @@ import {
 import { ActionReducerMap } from '@ngrx/store';
 import { authReducer, IAuth } from './auth.reducer';
 import * as fromRouter from '@ngrx/router-store';
+import { expencesReducer } from './expences.reducer';
 export interface IStore {
     auth: IAuth;
     // events: IEventsState;
@@ -13,6 +14,7 @@ export interface IStore {
 export const reducers: ActionReducerMap<any> = {
     auth: authReducer,
     routerReducer: fromRouter.routerReducer,
+    expences: expencesReducer,
     // events: eventsReducer
   };
 export interface IRouterStateUrl {

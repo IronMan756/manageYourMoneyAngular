@@ -1,17 +1,25 @@
-import { createAction } from '@ngrx/store';
+import { IExpences } from './../reducers/expences.reducer';
+import { createAction, props } from '@ngrx/store';
 
 export const getExpencesPending = createAction(
-    '[Expences] Get Expences Pending'
-  );
+  '[Expences] Get Expences Pending'
+);
 export const getExpencesSuccess = createAction(
-    '[Expences] Get Expences Success',
-    (payload: any) => ({
-      payload,
-    })
-  );
+  '[Expences] Get Expences Success',
+  props<{expences: IExpences[]}>(),
+);
 export const getExpencesError = createAction(
-    '[Expences] Get Expences Error',
-    (payload: any) => ({
-      payload,
-    })
-  )
+  '[Expences] Get Expences Error',
+  (payload: any) => ({
+    payload,
+  })
+);
+
+export const createExpencePending = createAction(
+  '[Expences] Create Expence Pending',
+  props<{expence: any}>(),
+);
+export const createExpenceSuccess = createAction(
+  '[Expences] Create Expence Success',
+  // props<{expence: IExpences}>(),
+);
