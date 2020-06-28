@@ -31,7 +31,7 @@ export const signInPending = createAction(
 
 export const signInSuccess = createAction(
   '[Auth] Sign In Success',
-  props<{ authorased: boolean }>()
+  props<{ token: string }>()
 );
 
 export const signInError = createAction(

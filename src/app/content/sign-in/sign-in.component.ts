@@ -1,4 +1,4 @@
-import { getExpencesPending } from './../../store/actions/expences.actions';
+import { getExpencesPending, createExpencePending } from './../../store/actions/expences.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AbstractForm } from '../../shared/services/form-helper';
@@ -6,20 +6,16 @@ import { Store } from '@ngrx/store';
 import { signInPending } from '../../store/actions/auth.actions';
 import { go } from '../../store/actions/router.actions';
 
-
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent extends AbstractForm implements OnInit  {
+export class SignInComponent extends AbstractForm implements OnInit {
   public form: FormGroup;
-  constructor(
-    private fb: FormBuilder,
-    private store: Store,
-  ){
+  constructor(private fb: FormBuilder, private store: Store) {
     super();
-   }
+  }
   // it works
   public ngOnInit(): void {
     this.form = this.fb.group({
@@ -27,15 +23,21 @@ export class SignInComponent extends AbstractForm implements OnInit  {
       password: ['', Validators.required],
     });
   }
-  public clic(){
+  public clic() {
     console.log('Expences');
-    this.store.dispatch(getExpencesPending())
- 
+    const expence = {
+      userId: '12345',
+      purseId: 'purse3',
+      suma: 4000,
+      data: '2020-06-28T15:47:32.179Z',
+      name: 'Картинг',
+      description: '',
+    };
+    this.store.dispatch(createExpencePending({expence}));
   }
-  public signin(){
-    if ( this.form.valid){
+  public signin() {
+    if (this.form.valid) {
       this.store.dispatch(signInPending(this.form.value));
-
     }
   }
 }

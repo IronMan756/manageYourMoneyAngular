@@ -1,10 +1,16 @@
 import { ExpencesService } from './../../shared/services/expences.service';
 import { ILogIn } from './../../shared/interfaces/log-in.interface';
-import { signInSuccess, signInError, signUpPending, signUpSuccess, signUpError } from './../actions/auth.actions';
+import {
+  signInSuccess,
+  signInError,
+  signUpPending,
+  signUpSuccess,
+  signUpError,
+} from './../actions/auth.actions';
 import { AuthService } from './../../shared/services/auth.service';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
-import {  Store, Action } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { Observable, of, from } from 'rxjs';
 import {
   switchMap,
@@ -104,20 +110,21 @@ export class AuthEffects {
   //   ),
   //   catchError(err => of(signUpError(err))),
   // );
-@Effect()
-public signIn$: Observable<any> = this.actions.pipe(
-  ofType(signInPending),
-  switchMap(({payload}) =>
-    this.authService.signIn(payload).pipe(
-      map((data: any) => {
-      this.jwtService.createToken(data.token);
-      return signInSuccess(data);
-      })
-    )
-  ),
-  catchError((err) => of(signInError(err)))
-);
-//  It is working
+  @Effect()
+  public signIn$: Observable<any> = this.actions.pipe(
+    ofType(signInPending),
+    switchMap(({ payload }) =>
+      this.authService.signIn(payload).pipe(
+        map(({token}: any) => {
+          console.log(token);
+          this.jwtService.createToken(token);
+          return signInSuccess({token});
+        })
+      )
+    ),
+    catchError((err) => of(signInError(err)))
+  );
+  //  It is working
   // public signIn$: Observable<Action> = createEffect(() =>
   // this.actions.pipe(
   //   ofType(signInPending),
@@ -133,22 +140,19 @@ public signIn$: Observable<any> = this.actions.pipe(
   //   catchError(err => of(err)),
   // ));
 
-
-@Effect()
-public signUp$: Observable<Action> = this.actions.pipe(
-  ofType(signUpPending),
-  switchMap(
-    ({payload}) => {
-    return this.authService.signUp(payload).pipe(
-      map((data) => {
-        console.log(data);
-        return signUpSuccess(data);
-      }
-      )
-    );
-  }),
-  catchError((err) => of(signUpError(err)))
-);
+  @Effect()
+  public signUp$: Observable<Action> = this.actions.pipe(
+    ofType(signUpPending),
+    switchMap(({ payload }) => {
+      return this.authService.signUp(payload).pipe(
+        map((data) => {
+          console.log(data);
+          return signUpSuccess(data);
+        })
+      );
+    }),
+    catchError((err) => of(signUpError(err)))
+  );
   // @Effect({ dispatch: false })
   // public updateUser: Observable<void> = this.actions.pipe(
   //   ofType(updateUser),
@@ -160,4 +164,4 @@ public signUp$: Observable<Action> = this.actions.pipe(
   //       .update(payload);
   //   }),
   // );
-    }
+}

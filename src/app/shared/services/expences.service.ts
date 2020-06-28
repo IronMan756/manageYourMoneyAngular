@@ -1,3 +1,4 @@
+import { IExpences } from './../../store/reducers/expences.reducer';
 import { Observable } from 'rxjs';
 import { getExpencesError } from './../../store/actions/expences.actions';
 import { HttpClient } from '@angular/common/http';
@@ -11,5 +12,9 @@ export class ExpencesService{
     public getExpences(): Observable<any>{
         console.log('expences service')
         return this.http.get('/expences');
+    }
+    public createExpence(expence: IExpences): Observable<any>{
+        console.log(expence)
+        return this.http.post('/expences',expence);
     }
 }
