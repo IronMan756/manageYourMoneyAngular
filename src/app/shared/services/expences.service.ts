@@ -15,6 +15,9 @@ export class ExpencesService{
     }
     public createExpence(expence: IExpences): Observable<any>{
         console.log(expence)
-        return this.http.post('/expences',expence);
+        return this.http.post('/expences', expence);
+    }
+    public remove( expenceId: string){
+        return this.http.delete(`/expences?id=${expenceId}`) ;
     }
 }

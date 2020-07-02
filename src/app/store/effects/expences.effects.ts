@@ -9,7 +9,8 @@ import {
   getExpencesPending,
   createExpencePending,
   createExpenceSuccess,
-} from '../actions/expences.actions';
+  deleteExpencePending,
+  deleteExpenceSuccess,} from '../actions/expences.actions';
 import { ExpencesService } from '../../shared/services/expences.service';
 
 @Injectable()
@@ -43,4 +44,17 @@ export class ExpencesEffects {
       );
     })
   );
+
+
+  @Effect()
+  public deleteExpence$: Observable<any> = this.actions.pipe(
+    ofType(deleteExpencePending),
+    switchMap(( { expenceId } ) => {
+      return this.expenceService.remove(expenceId).pipe(
+        map( () => {
+          return deleteExpenceSuccess();
+        })
+      )
+    })
+  )
 }

@@ -1,4 +1,4 @@
-import { getExpencesPending, createExpencePending } from './../../store/actions/expences.actions';
+import { getExpencesPending, createExpencePending, deleteExpencePending } from './../../store/actions/expences.actions';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AbstractForm } from '../../shared/services/form-helper';
@@ -33,7 +33,7 @@ export class SignInComponent extends AbstractForm implements OnInit {
       name: 'Картинг',
       description: '',
     };
-    this.store.dispatch(createExpencePending({expence}));
+    this.store.dispatch(deleteExpencePending({expenceId: 'fghjlvxb izkjdzkyv8548512541258'}));
   }
   public signin() {
     if (this.form.valid) {
