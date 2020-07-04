@@ -11,7 +11,6 @@ export interface IExpences {
     description: string;
 }
 
-
 export const expencesReducer = createReducer(
     {
         items: [],

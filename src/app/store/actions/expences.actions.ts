@@ -23,6 +23,10 @@ export const createExpenceSuccess = createAction(
   '[Expences] Create Expence Success',
   // props<{expence: IExpences}>(),
 );
+export const createExpenceError = createAction(
+  '[Expences] Create Expence Error',
+  props<{err}>()
+);
 
 
 export const deleteExpencePending = createAction(
@@ -33,3 +37,7 @@ export const deleteExpencePending = createAction(
 export const deleteExpenceSuccess = createAction(
   '[Expences] Delete Expence Success'
 );
+export const deleteExpenceError = createAction(
+  '[Expences] Delete Expence Error',
+  props<{err}>()
+)
