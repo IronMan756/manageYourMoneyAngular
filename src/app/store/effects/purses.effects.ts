@@ -1,6 +1,6 @@
 import { IPurses } from './../reducers/purses.reducer';
 import { mergeMap, map, catchError } from 'rxjs/operators';
-import { getPursesPending, getPursesSuccess, getPursesError, createPursePending, createPurseSuccess, createPursesError } from './../actions/purses.actions';
+import { getPursesPending, getPursesSuccess, getPursesError, createPursePending, createPurseSuccess, createPursesError, removePursePending, removePurseError, removePurseSuccess } from './../actions/purses.actions';
 import { Observable, of } from 'rxjs';
 import { PursesService } from './../../shared/services/purses.service';
 import { Injectable } from '@angular/core';
@@ -38,5 +38,16 @@ export class PursesEffects{
         }),
         catchError( (err) => of(createPursesError(err)))
     );
+    @Effect()
+    public removePurse$: Observable<Action> = this.action.pipe(
+        ofType(removePursePending),
+        mergeMap( ({ purseId }) => {
+            return this.pursesService.removePurse(purseId).pipe(
+                map(() => {
+                    return removePurseSuccess()
+                })
+            )
+        })
+    )
 }
 
