@@ -1,3 +1,4 @@
+import { pursesReducer } from './purses.reducer';
 import {
     Params,
     RouterStateSnapshot,
@@ -17,6 +18,7 @@ export const reducers: ActionReducerMap<any> = {
     routerReducer: fromRouter.routerReducer,
     expences: expencesReducer,
     incomes: incomesReducer,
+    purses: pursesReducer
     // events: eventsReducer
   };
 export interface IRouterStateUrl {
