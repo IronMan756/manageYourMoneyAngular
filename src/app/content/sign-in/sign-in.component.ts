@@ -1,10 +1,12 @@
-import { getExpencesPending, createExpencePending, deleteExpencePending } from './../../store/actions/expences.actions';
+import { IIncomes } from './../../store/reducers/incomes.reducer';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AbstractForm } from '../../shared/services/form-helper';
 import { Store } from '@ngrx/store';
 import { signInPending } from '../../store/actions/auth.actions';
 import { go } from '../../store/actions/router.actions';
+import { createIncomePending, removeIncomePending } from '../../store/actions/incomes.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -25,15 +27,32 @@ export class SignInComponent extends AbstractForm implements OnInit {
   }
   public clic() {
     console.log('Expences');
-    const expence = {
+    const payload: IIncomes = {
       userId: '12345',
       purseId: 'purse3',
-      suma: 4000,
-      data: '2020-06-28T15:47:32.179Z',
+      suma: 6000,
+      // data: '2020-06-28T15:47:32.179Z',
       name: 'Картинг',
       description: '',
     };
-    this.store.dispatch(deleteExpencePending({expenceId: 'fghjlvxb izkjdzkyv8548512541258'}));
+    const QueryIncomes = {
+      userId: '5198645',
+      purseId: '/98654189',
+      suma: 2000,
+      data: 547986,
+      name: 'fghjkllkjb',
+      _id: 'dclnjk',
+    };
+    const qury = {
+      userId: 'fyghjk',
+      purseId: 'iyuihjlk86541',
+      suma: 8415154165,
+      data: Date,
+      name: 'ghjbnmklhlighbj',
+      description: 'fghjk',
+      _id: 'yguhkjl',
+    };
+    this.store.dispatch(removeIncomePending({incomeId: '5f0074b5cf0c8501b58a89aa'}));
   }
   public signin() {
     if (this.form.valid) {

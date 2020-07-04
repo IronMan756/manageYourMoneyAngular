@@ -1,3 +1,4 @@
+import { IncomesService } from './services/incomes.service';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -62,7 +63,8 @@ import { JwtService } from './services/jwt.service';
     },
     AuthService,
     ExpencesService,
-    JwtService
+    JwtService,
+    IncomesService
   ],
 })
 export class SharedModule {

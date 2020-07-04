@@ -10,7 +10,9 @@ import {
   createExpencePending,
   createExpenceSuccess,
   deleteExpencePending,
-  deleteExpenceSuccess,} from '../actions/expences.actions';
+  deleteExpenceSuccess,
+  createExpenceError,
+  deleteExpenceError,} from '../actions/expences.actions';
 import { ExpencesService } from '../../shared/services/expences.service';
 
 @Injectable()
@@ -42,7 +44,8 @@ export class ExpencesEffects {
           return createExpenceSuccess(), getExpencesPending();
         })
       );
-    })
+    }),
+     catchError((err) => of(createExpenceError(err), console.log(err)))
   );
 
 
@@ -54,7 +57,8 @@ export class ExpencesEffects {
         map( () => {
           return deleteExpenceSuccess();
         })
-      )
-    })
-  )
+      );
+    }),
+    catchError((err) => of(deleteExpenceError(err), console.log(err)))
+  );
 }
