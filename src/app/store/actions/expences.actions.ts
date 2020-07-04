@@ -23,3 +23,13 @@ export const createExpenceSuccess = createAction(
   '[Expences] Create Expence Success',
   // props<{expence: IExpences}>(),
 );
+
+
+export const deleteExpencePending = createAction(
+  '[Expences] Delete Expence Pending',
+  props<{expenceId: string}>(),
+);
+
+export const deleteExpenceSuccess = createAction(
+  '[Expences] Delete Expence Success'
+);
