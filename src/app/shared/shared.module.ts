@@ -1,3 +1,4 @@
+import { CategoriesService } from './services/categories.service';
 import { IncomesService } from './services/incomes.service';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -7,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
 import {
   MatDialogModule,
-  MAT_DIALOG_DEFAULT_OPTIONS,
 } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -66,7 +66,8 @@ import { PursesService } from './services/purses.service';
     ExpencesService,
     JwtService,
     IncomesService,
-    PursesService
+    PursesService,
+    CategoriesService
   ],
 })
 export class SharedModule {
