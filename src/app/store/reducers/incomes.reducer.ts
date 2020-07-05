@@ -10,16 +10,16 @@ export interface IIncomes {
   description?: string;
   _id?: string;
 }
+export interface IIncomesState{
+   items: IIncomes[];
+   loadingg: boolean;
+}
 
 const InitState = {
   items: [],
   isLoading: false,
 };
 
-interface IIncomesState {
-  items: IIncomes[];
-  loading: boolean;
-}
 
 export const incomesReducer = createReducer(
   InitState,

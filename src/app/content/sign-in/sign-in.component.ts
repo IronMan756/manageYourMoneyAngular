@@ -9,6 +9,7 @@ import { signInPending } from '../../store/actions/auth.actions';
 import { go } from '../../store/actions/router.actions';
 import { createIncomePending, removeIncomePending } from '../../store/actions/incomes.actions';
 import { getPursesPending, createPursePending, removePursePending } from '../../store/actions/purses.actions';
+import { getCategoriesPending } from '../../store/actions/categories.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -30,7 +31,7 @@ export class SignInComponent extends AbstractForm implements OnInit {
   public clic() {
     console.log('Expences');
    
-    this.store.dispatch(removePursePending({purseId: '5f00b740d231a101f92b2c6f'}));
+    this.store.dispatch(getCategoriesPending());
   }
   public signin() {
     if (this.form.valid) {

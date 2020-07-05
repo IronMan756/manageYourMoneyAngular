@@ -10,6 +10,10 @@ export interface IExpences {
     name: string;
     description: string;
 }
+export interface IExpencesState{
+    items: IExpences[];
+    loading: boolean;
+}
 
 export const expencesReducer = createReducer(
     {

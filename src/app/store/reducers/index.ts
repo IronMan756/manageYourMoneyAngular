@@ -1,4 +1,5 @@
-import { pursesReducer } from './purses.reducer';
+import { categoriesReducer, ICategoriesStore } from './categories.reducer';
+import { pursesReducer, IPursesState } from './purses.reducer';
 import {
     Params,
     RouterStateSnapshot,
@@ -7,10 +8,15 @@ import {
 import { ActionReducerMap } from '@ngrx/store';
 import { authReducer, IAuth } from './auth.reducer';
 import * as fromRouter from '@ngrx/router-store';
-import { expencesReducer } from './expences.reducer';
-import { incomesReducer } from './incomes.reducer';
+import { expencesReducer, IExpencesState } from './expences.reducer';
+import { incomesReducer, IIncomesState } from './incomes.reducer';
 export interface IStore {
     auth: IAuth;
+    routrReducer: IRouterStateUrl;
+    expences: IExpencesState;
+    incomes: IIncomesState;
+    purses: IPursesState;
+    categories: ICategoriesStore;
     // events: IEventsState;
   }
 export const reducers: ActionReducerMap<any> = {
@@ -18,7 +24,8 @@ export const reducers: ActionReducerMap<any> = {
     routerReducer: fromRouter.routerReducer,
     expences: expencesReducer,
     incomes: incomesReducer,
-    purses: pursesReducer
+    purses: pursesReducer,
+    categories: categoriesReducer
     // events: eventsReducer
   };
 export interface IRouterStateUrl {
