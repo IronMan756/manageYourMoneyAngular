@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 export class IncomesService {
   constructor(public http: HttpClient) {}
   public getIncomes(): Observable<any> {
-    // const { userId, purseId, suma, data, name, _id } = payload;
-
     return this.http.get('/incomes');
   }
   public createIncome(payload: IIncomes): Observable<any>{

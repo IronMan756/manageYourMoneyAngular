@@ -1,3 +1,4 @@
+import { IPurses } from './../../store/reducers/purses.reducer';
 import { IIncomes } from './../../store/reducers/incomes.reducer';
 
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { signInPending } from '../../store/actions/auth.actions';
 import { go } from '../../store/actions/router.actions';
 import { createIncomePending, removeIncomePending } from '../../store/actions/incomes.actions';
+import { getPursesPending, createPursePending, removePursePending } from '../../store/actions/purses.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -27,32 +29,8 @@ export class SignInComponent extends AbstractForm implements OnInit {
   }
   public clic() {
     console.log('Expences');
-    const payload: IIncomes = {
-      userId: '12345',
-      purseId: 'purse3',
-      suma: 6000,
-      // data: '2020-06-28T15:47:32.179Z',
-      name: 'Картинг',
-      description: '',
-    };
-    const QueryIncomes = {
-      userId: '5198645',
-      purseId: '/98654189',
-      suma: 2000,
-      data: 547986,
-      name: 'fghjkllkjb',
-      _id: 'dclnjk',
-    };
-    const qury = {
-      userId: 'fyghjk',
-      purseId: 'iyuihjlk86541',
-      suma: 8415154165,
-      data: Date,
-      name: 'ghjbnmklhlighbj',
-      description: 'fghjk',
-      _id: 'yguhkjl',
-    };
-    this.store.dispatch(removeIncomePending({incomeId: '5f0074b5cf0c8501b58a89aa'}));
+   
+    this.store.dispatch(removePursePending({purseId: '5f00b740d231a101f92b2c6f'}));
   }
   public signin() {
     if (this.form.valid) {

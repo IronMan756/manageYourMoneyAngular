@@ -27,6 +27,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { RouterEffects } from '../store/effects/router.effect';
 import { ExpencesService } from './services/expences.service';
 import { JwtService } from './services/jwt.service';
+import { PursesService } from './services/purses.service';
 
 @NgModule({
   declarations: [],
@@ -64,7 +65,8 @@ import { JwtService } from './services/jwt.service';
     AuthService,
     ExpencesService,
     JwtService,
-    IncomesService
+    IncomesService,
+    PursesService
   ],
 })
 export class SharedModule {
