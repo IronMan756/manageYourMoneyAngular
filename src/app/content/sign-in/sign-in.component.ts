@@ -29,28 +29,8 @@ export class SignInComponent extends AbstractForm implements OnInit {
   }
   public clic() {
     console.log('Expences');
-    const payload: IPurses = {
-        name: 'Д.С.',
-        balance: 20500
-    };
-    const QueryIncomes = {
-      userId: '5198645',
-      purseId: '/98654189',
-      suma: 2000,
-      data: 547986,
-      name: 'fghjkllkjb',
-      _id: 'dclnjk',
-    };
-    const qury = {
-      userId: 'fyghjk',
-      purseId: 'iyuihjlk86541',
-      suma: 8415154165,
-      data: Date,
-      name: 'ghjbnmklhlighbj',
-      description: 'fghjk',
-      _id: 'yguhkjl',
-    };
-    this.store.dispatch(removePursePending({purseId:"5f00b740d231a101f92b2c6f"}));
+   
+    this.store.dispatch(removePursePending({purseId: '5f00b740d231a101f92b2c6f'}));
   }
   public signin() {
     if (this.form.valid) {

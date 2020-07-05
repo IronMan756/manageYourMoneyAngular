@@ -12,11 +12,9 @@ export class PursesService{
         return this.http.get('/purses');
     }
     public createPurse(payload: IPurses): Observable<any>{
-        console.log('payload',payload)
         return this.http.post('/purses', payload);
     }
     public removePurse(purseId: string): Observable<any>{
-        console.log('purseId :',purseId)
         return this.http.delete(`/purses?id=${purseId}`);
     }
 }

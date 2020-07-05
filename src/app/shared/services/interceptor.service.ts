@@ -8,7 +8,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 
-import { Observable, throwError, EMPTY } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { BASE_URL_TOKEN } from '../../../config';
 

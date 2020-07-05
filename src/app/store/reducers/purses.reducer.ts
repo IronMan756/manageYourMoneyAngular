@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { getPursesPending, getPursesSuccess } from '../actions/purses.actions';
+import { getPursesPending, getPursesSuccess, createPursePending, createPurseSuccess, removePursePending, removePurseSuccess } from '../actions/purses.actions';
 
 
 
@@ -29,6 +29,23 @@ export const pursesReducer = createReducer(
     on(getPursesSuccess, (state: any, {purses}) => ({
         ...state,
         items: purses,
+        loading: false
+    })),
+    on(createPursePending, (state: any) => ({
+        ...state,
         loading: true
     })),
-)
+    on(createPurseSuccess, (state: any) => ({
+        ...state,
+        loading: false
+    })),
+    on(removePursePending, (state: any) => ({
+        ...state,
+        loading: true
+    })),
+    on(removePurseSuccess, (state: any) => ({
+        ...state,
+        loading: false
+    })),
+
+);

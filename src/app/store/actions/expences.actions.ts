@@ -6,32 +6,26 @@ export const getExpencesPending = createAction(
 );
 export const getExpencesSuccess = createAction(
   '[Expences] Get Expences Success',
-  props<{expences: IExpences[]}>(),
+  props<{ expences: IExpences[] }>()
 );
 export const getExpencesError = createAction(
   '[Expences] Get Expences Error',
-  (payload: any) => ({
-    payload,
-  })
+  props<{err }>()
 );
-
 export const createExpencePending = createAction(
   '[Expences] Create Expence Pending',
-  props<{expence: any}>(),
+  props<{ expence: any }>()
 );
 export const createExpenceSuccess = createAction(
-  '[Expences] Create Expence Success',
-  // props<{expence: IExpences}>(),
+  '[Expences] Create Expence Success'
 );
 export const createExpenceError = createAction(
   '[Expences] Create Expence Error',
-  props<{err}>()
+  props<{ err }>()
 );
-
-
 export const deleteExpencePending = createAction(
   '[Expences] Delete Expence Pending',
-  props<{expenceId: string}>(),
+  props<{ expenceId: string }>()
 );
 
 export const deleteExpenceSuccess = createAction(
@@ -39,5 +33,5 @@ export const deleteExpenceSuccess = createAction(
 );
 export const deleteExpenceError = createAction(
   '[Expences] Delete Expence Error',
-  props<{err}>()
-)
+  props<{ err }>()
+);
