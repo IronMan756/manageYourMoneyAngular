@@ -18,7 +18,7 @@ export const getCategoriesError = createAction(
 
 export const createCategoryPending = createAction(
     '[Categories] Create Categories Pending',
-    props<{category}>()
+    props<{category: ICategories}>()
 );
 export const createCategorySuccess = createAction(
     '[Categories] Create Categories Success'
@@ -27,3 +27,17 @@ export const createCategoryError = createAction(
     '[Categories] Create Categories Error',
     props<{err}>()
 );
+
+
+export const removeCategoryPending = createAction(
+    '[Categories] Remove Category Pending',
+    props<{categoryId: string}>()
+);
+export const removeCategorySuccess = createAction(
+    '[Categories] Remove Category Success'
+);
+export const removeCategoryError = createAction(
+    '[Categories] Remove Category Error',
+    props<{err}>()
+);
+

@@ -12,7 +12,7 @@ import {
   deleteExpencePending,
   deleteExpenceSuccess,
   createExpenceError,
-  deleteExpenceError,} from '../actions/expences.actions';
+  deleteExpenceError} from '../actions/expences.actions';
 import { ExpencesService } from '../../shared/services/expences.service';
 
 @Injectable()

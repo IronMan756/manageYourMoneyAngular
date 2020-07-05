@@ -1,3 +1,4 @@
+import { removeCategoryPending } from './../../store/actions/categories.actions';
 import { IPurses } from './../../store/reducers/purses.reducer';
 import { IIncomes } from './../../store/reducers/incomes.reducer';
 
@@ -7,9 +8,19 @@ import { AbstractForm } from '../../shared/services/form-helper';
 import { Store } from '@ngrx/store';
 import { signInPending } from '../../store/actions/auth.actions';
 import { go } from '../../store/actions/router.actions';
-import { createIncomePending, removeIncomePending } from '../../store/actions/incomes.actions';
-import { getPursesPending, createPursePending, removePursePending } from '../../store/actions/purses.actions';
-import { getCategoriesPending } from '../../store/actions/categories.actions';
+import {
+  createIncomePending,
+  removeIncomePending,
+} from '../../store/actions/incomes.actions';
+import {
+  getPursesPending,
+  createPursePending,
+  removePursePending,
+} from '../../store/actions/purses.actions';
+import {
+  createCategoryPending,
+  getCategoriesPending,
+} from '../../store/actions/categories.actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -28,10 +39,15 @@ export class SignInComponent extends AbstractForm implements OnInit {
       password: ['', Validators.required],
     });
   }
-  public clic() {
-    console.log('Expences');
-   
-    this.store.dispatch(getCategoriesPending());
+  public async clic() {
+    const category = {
+      name: 'Другие',
+      description: 'Для других ниско необходимых расходов',
+    };
+    // await this.store.dispatch(createCategoryPending({ category }));
+    // await this.store.dispatch(getCategoriesPending());
+    await this.store.dispatch(removeCategoryPending({categoryId: '5f01d81a1e4b50004b64f8d3'}));
+    await this.store.dispatch(getCategoriesPending());
   }
   public signin() {
     if (this.form.valid) {
