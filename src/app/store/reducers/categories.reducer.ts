@@ -4,14 +4,16 @@ import {
   getCategoriesSuccess,
   createCategoryPending,
   createCategorySuccess,
+  removeCategoryPending,
+  removeCategorySuccess,
 } from '../actions/categories.actions';
 
 
 
 export interface ICategories {
   name: string;
-  description: string;
-  img: string;
+  description?: string;
+  img?: string;
 }
 export interface ICategoriesStore {
     items: ICategories[];
@@ -36,6 +38,14 @@ export const categoriesReducer = createReducer(
     loading: true,
   })),
   on(createCategorySuccess, (state: any) => ({
+    ...state,
+    loading: false
+  })),
+  on(removeCategoryPending, (state: any) => ({
+    ...state,
+    loading: true,
+  })),
+  on(removeCategorySuccess, (state: any) => ({
     ...state,
     loading: false
   }))

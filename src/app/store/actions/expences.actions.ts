@@ -14,7 +14,7 @@ export const getExpencesError = createAction(
 );
 export const createExpencePending = createAction(
   '[Expences] Create Expence Pending',
-  props<{ expence: any }>()
+  props<{ expence: IExpences }>()
 );
 export const createExpenceSuccess = createAction(
   '[Expences] Create Expence Success'
