@@ -28,4 +28,7 @@ export const removePursePending = createAction(
   props<{ purseId: string }>()
 );
 export const removePurseSuccess = createAction('[Purses] Remove Purse Success');
-export const removePurseError = createAction('[Purses] Remove Purse Error');
+export const removePurseError = createAction(
+  '[Purses] Remove Purse Error',
+  props<{ err: Error }>()
+);

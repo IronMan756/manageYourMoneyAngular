@@ -50,9 +50,9 @@ export class PursesEffects {
     ofType(removePursePending),
     mergeMap(({ purseId }) => {
       return this.pursesService.removePurse(purseId).pipe(
-        map(() => {
-          return removePurseSuccess();
-        })
+        map(() =>  removePurseSuccess()
+        ),
+        catchError((err) => of(removePurseError(err)))
       );
     })
   );
