@@ -15,7 +15,7 @@ export interface ICategories {
   description?: string;
   img?: string;
 }
-export interface ICategoriesStore {
+export interface ICategoriesState {
     items: ICategories[];
     loading: boolean;
 }
@@ -24,28 +24,28 @@ export const categoriesReducer = createReducer(
     items: [],
     loading: false,
   },
-  on(getCategoriesPending, (state: any) => ({
+  on(getCategoriesPending, (state: ICategoriesState) => ({
     ...state,
     loading: true,
   })),
-  on(getCategoriesSuccess, (state: any, { categories }) => ({
+  on(getCategoriesSuccess, (state: ICategoriesState, { categories }) => ({
     ...state,
     loading: false,
     items: categories,
   })),
-  on(createCategoryPending, (state: any) => ({
+  on(createCategoryPending, (state: ICategoriesState) => ({
     ...state,
     loading: true,
   })),
-  on(createCategorySuccess, (state: any) => ({
+  on(createCategorySuccess, (state: ICategoriesState) => ({
     ...state,
     loading: false
   })),
-  on(removeCategoryPending, (state: any) => ({
+  on(removeCategoryPending, (state: ICategoriesState) => ({
     ...state,
     loading: true,
   })),
-  on(removeCategorySuccess, (state: any) => ({
+  on(removeCategorySuccess, (state: ICategoriesState) => ({
     ...state,
     loading: false
   }))

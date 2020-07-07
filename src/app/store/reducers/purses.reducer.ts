@@ -22,28 +22,28 @@ const initState = {
 
 export const pursesReducer = createReducer(
     initState,
-    on(getPursesPending, (state: any) => ({
+    on(getPursesPending, (state: IPursesState) => ({
         ...state,
         loading: true
     })),
-    on(getPursesSuccess, (state: any, {purses}) => ({
+    on(getPursesSuccess, (state: IPursesState, {purses}) => ({
         ...state,
         items: purses,
         loading: false
     })),
-    on(createPursePending, (state: any) => ({
+    on(createPursePending, (state: IPursesState) => ({
         ...state,
         loading: true
     })),
-    on(createPurseSuccess, (state: any) => ({
+    on(createPurseSuccess, (state: IPursesState) => ({
         ...state,
         loading: false
     })),
-    on(removePursePending, (state: any) => ({
+    on(removePursePending, (state: IPursesState) => ({
         ...state,
         loading: true
     })),
-    on(removePurseSuccess, (state: any) => ({
+    on(removePurseSuccess, (state: IPursesState) => ({
         ...state,
         loading: false
     })),

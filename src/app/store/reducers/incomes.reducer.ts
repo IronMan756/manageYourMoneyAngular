@@ -12,39 +12,39 @@ export interface IIncomes {
 }
 export interface IIncomesState{
    items: IIncomes[];
-   loadingg: boolean;
+   loading: boolean;
 }
 
 const InitState = {
   items: [],
-  isLoading: false,
+  loading: false,
 };
 
 
 export const incomesReducer = createReducer(
   InitState,
-  on(getIncomesPending, (state: any) => ({
+  on(getIncomesPending, (state: IIncomesState) => ({
     ...state,
     loading: true,
   })),
-  on(getIncomesSuccess, (state: any, {incomes}) => ({
+  on(getIncomesSuccess, (state: IIncomesState, {incomes}) => ({
    ...state,
    items: incomes,
    loading: false,
  })),
- on(createIncomePending, (state: any) => ({
+ on(createIncomePending, (state: IIncomesState) => ({
    ...state,
    loading: true,
  })),
- on(createIncomeSuccess, (state: any) => ({
+ on(createIncomeSuccess, (state: IIncomesState) => ({
    ...state,
    loading: false,
  })),
- on(removeIncomePending, (state: any) => ({
+ on(removeIncomePending, (state: IIncomesState) => ({
    ...state,
    loading: true,
  })),
- on(removeIncomeSuccess, (state: any) => ({
+ on(removeIncomeSuccess, (state: IIncomesState) => ({
    ...state,
    loading: false,
  })),

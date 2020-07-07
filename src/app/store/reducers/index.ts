@@ -1,4 +1,5 @@
-import { categoriesReducer, ICategoriesStore } from './categories.reducer';
+import { transactionsReducer, ITransactionsState } from './transactions.reducer';
+import { categoriesReducer, ICategoriesState } from './categories.reducer';
 import { pursesReducer, IPursesState } from './purses.reducer';
 import {
     Params,
@@ -16,7 +17,8 @@ export interface IStore {
     expences: IExpencesState;
     incomes: IIncomesState;
     purses: IPursesState;
-    categories: ICategoriesStore;
+    categories: ICategoriesState;
+    transactions: ITransactionsState;
     // events: IEventsState;
   }
 export const reducers: ActionReducerMap<any> = {
@@ -25,7 +27,8 @@ export const reducers: ActionReducerMap<any> = {
     expences: expencesReducer,
     incomes: incomesReducer,
     purses: pursesReducer,
-    categories: categoriesReducer
+    categories: categoriesReducer,
+    transactions: transactionsReducer
     // events: eventsReducer
   };
 export interface IRouterStateUrl {

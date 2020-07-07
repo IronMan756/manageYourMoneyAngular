@@ -1,3 +1,4 @@
+import { TransactionsService } from './services/transactionsServise';
 import { CategoriesService } from './services/categories.service';
 import { IncomesService } from './services/incomes.service';
 import { AuthService } from './services/auth.service';
@@ -67,7 +68,8 @@ import { PursesService } from './services/purses.service';
     JwtService,
     IncomesService,
     PursesService,
-    CategoriesService
+    CategoriesService,
+    TransactionsService
   ],
 })
 export class SharedModule {
