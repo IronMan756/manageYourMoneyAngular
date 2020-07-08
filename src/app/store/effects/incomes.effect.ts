@@ -15,13 +15,15 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class IncomesEffects {
   constructor(
     private action: Actions,
-    private incomesService: IncomesService
+    private incomesService: IncomesService,
+    private toasts: ToastrService
   ) {}
   @Effect()
   public getIncomes$: Observable<Action> = this.action.pipe(
@@ -41,6 +43,7 @@ export class IncomesEffects {
     ofType(createIncomePending),
     mergeMap(({ payload }: any) => {
       return this.incomesService.createIncome(payload).pipe(
+        tap(() => this.toasts.success('You successfully added new income')),
         map(() => {
           return createIncomeSuccess();
         })
@@ -53,6 +56,7 @@ export class IncomesEffects {
     ofType(removeIncomePending),
     mergeMap(({ incomeId }) => {
       return this.incomesService.removeIncome(incomeId).pipe(
+        tap(() => this.toasts.success('You successfully removed income')),
         map(() => {
           return removeIncomeSuccess();
         })
