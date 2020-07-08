@@ -1,5 +1,5 @@
 import { IPurses } from './../reducers/purses.reducer';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import {
   getPursesPending,
   getPursesSuccess,
@@ -16,10 +16,15 @@ import { PursesService } from './../../shared/services/purses.service';
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class PursesEffects {
-  constructor(public action: Actions, public pursesService: PursesService) {}
+  constructor(
+    public action: Actions,
+    public pursesService: PursesService,
+    private toasts: ToastrService
+  ) {}
   @Effect()
   public getPurses$: Observable<Action> = this.action.pipe(
     ofType(getPursesPending),
@@ -38,6 +43,7 @@ export class PursesEffects {
     ofType(createPursePending),
     mergeMap(({ payload }: any) => {
       return this.pursesService.createPurse(payload).pipe(
+        tap(() => this.toasts.success('You successfully added new purse')),
         map((_) => {
           return createPurseSuccess();
         })
@@ -50,8 +56,8 @@ export class PursesEffects {
     ofType(removePursePending),
     mergeMap(({ purseId }) => {
       return this.pursesService.removePurse(purseId).pipe(
-        map(() =>  removePurseSuccess()
-        ),
+        tap(() => this.toasts.success('You successfully removed purse')),
+        map(() => removePurseSuccess()),
         catchError((err) => of(removePurseError(err)))
       );
     })

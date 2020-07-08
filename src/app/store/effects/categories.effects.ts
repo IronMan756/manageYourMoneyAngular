@@ -1,4 +1,4 @@
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import {
   getCategoriesPending,
   getCategoriesSuccess,
@@ -16,13 +16,15 @@ import { Effect, ofType, Actions } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { ICategories } from '../reducers/categories.reducer';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class CategoriesEffects {
   [x: string]: any;
   constructor(
     private action: Actions,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private toasts: ToastrService
   ) {}
   @Effect()
   public getCategories$: Observable<Action> = this.action.pipe(
@@ -41,6 +43,7 @@ export class CategoriesEffects {
     ofType(createCategoryPending),
     mergeMap(({ category }) => {
       return this.categoriesService.createCategory(category).pipe(
+        tap(() => this.toasts.success('You successfully created category')),
         map(() => {
           return createCategorySuccess();
         })
@@ -53,6 +56,7 @@ export class CategoriesEffects {
     ofType(removeCategoryPending),
     mergeMap(({ categoryId }) => {
       return this.categoriesService.removeCategory(categoryId).pipe(
+        tap(() => this.toasts.success('You successfully removed category')),
         map(() => {
           return removeCategorySuccess();
         })

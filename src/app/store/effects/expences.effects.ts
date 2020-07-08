@@ -2,7 +2,7 @@ import { IExpences } from './../reducers/expences.reducer';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Actions, ofType, Effect } from '@ngrx/effects';
-import { switchMap, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map, tap } from 'rxjs/operators';
 import {
   getExpencesSuccess,
   getExpencesError,
@@ -12,14 +12,17 @@ import {
   deleteExpencePending,
   deleteExpenceSuccess,
   createExpenceError,
-  deleteExpenceError} from '../actions/expences.actions';
+  deleteExpenceError,
+} from '../actions/expences.actions';
 import { ExpencesService } from '../../shared/services/expences.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ExpencesEffects {
   constructor(
     private actions: Actions,
-    private expenceService: ExpencesService
+    private expenceService: ExpencesService,
+    private toasts: ToastrService
   ) {}
 
   @Effect()
@@ -40,21 +43,22 @@ export class ExpencesEffects {
     ofType(createExpencePending),
     switchMap(({ expence }: any) => {
       return this.expenceService.createExpence(expence).pipe(
+        tap(() => this.toasts.success('You successfully created new expense')),
         map(() => {
           return createExpenceSuccess(), getExpencesPending();
         })
       );
     }),
-     catchError((err) => of(createExpenceError(err), console.log(err)))
+    catchError((err) => of(createExpenceError(err), console.log(err)))
   );
-
 
   @Effect()
   public deleteExpence$: Observable<any> = this.actions.pipe(
     ofType(deleteExpencePending),
-    switchMap(( { expenceId } ) => {
+    switchMap(({ expenceId }) => {
       return this.expenceService.remove(expenceId).pipe(
-        map( () => {
+        tap(() => this.toasts.success('You successfully removed expense')),
+        map(() => {
           return deleteExpenceSuccess();
         })
       );

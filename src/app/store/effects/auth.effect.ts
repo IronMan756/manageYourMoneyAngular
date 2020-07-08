@@ -1,4 +1,3 @@
-import { ExpencesService } from './../../shared/services/expences.service';
 import { ILogIn } from './../../shared/interfaces/log-in.interface';
 import {
   signInSuccess,
@@ -18,6 +17,8 @@ import {
   catchError,
   mergeMap,
   withLatestFrom,
+  finalize,
+  tap,
 } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material';
@@ -25,6 +26,7 @@ import { signInPending } from '../actions/auth.actions';
 import { RouterEffects } from './router.effect';
 import { go } from '../actions/router.actions';
 import { JwtService } from '../../shared/services/jwt.service';
+import { ToastrService } from 'ngx-toastr';
 // import { IStore } from '../reducers';
 
 @Injectable()
@@ -35,6 +37,7 @@ export class AuthEffects {
     private routerEffects: RouterEffects,
     private authService: AuthService,
     private jwtService: JwtService,
+    private toasts: ToastrService,
     private store: Store<
       any
       // IStore
@@ -115,14 +118,23 @@ export class AuthEffects {
     ofType(signInPending),
     switchMap(({ payload }) =>
       this.authService.signIn(payload).pipe(
-        map(({token}: any) => {
-          console.log(token);
+        tap(() => this.toasts.success('You successfully logged in')),
+        map(({ token }: any) => {
           this.jwtService.createToken(token);
-          return signInSuccess({token});
+          return signInSuccess({ token });
+        }),
+        catchError((_) => {
+          console.log('error');
+          this.toasts.error('Internal Server Error');
+          return of(signInError(_));
         })
       )
     ),
-    catchError((err) => of(signInError(err)))
+    catchError((_) => {
+      console.log('error');
+      this.toasts.error('Internal Server Error');
+      return of(signInError(_));
+    })
   );
   //  It is working
   // public signIn$: Observable<Action> = createEffect(() =>
@@ -145,8 +157,8 @@ export class AuthEffects {
     ofType(signUpPending),
     switchMap(({ payload }) => {
       return this.authService.signUp(payload).pipe(
+        tap(() => this.toasts.success('You successfully Signed Up')),
         map((data) => {
-          console.log(data);
           return signUpSuccess(data);
         })
       );
