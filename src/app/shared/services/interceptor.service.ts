@@ -8,7 +8,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 
-import { Observable, EMPTY } from 'rxjs';
+import { Observable, EMPTY, throwError } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { BASE_URL_TOKEN } from '../../../config';
 
@@ -54,8 +54,9 @@ export class InterceptorService implements HttpInterceptor {
       map((res: HttpResponse<IRes>) => {
         return res.clone({ body: res.body && res.body.data });
       }),
-      catchError(() => {
-        return EMPTY;
+      catchError((err) => {
+        // tslint:disable-next-line: deprecation
+        return throwError({err} );
       })
     );
   }

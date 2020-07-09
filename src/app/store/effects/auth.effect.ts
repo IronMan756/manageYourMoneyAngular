@@ -18,6 +18,7 @@ import {
   catchError,
   mergeMap,
   withLatestFrom,
+  tap,
 } from 'rxjs/operators';
 
 import { MatSnackBar } from '@angular/material';
@@ -115,14 +116,14 @@ export class AuthEffects {
     ofType(signInPending),
     switchMap(({ payload }) =>
       this.authService.signIn(payload).pipe(
+        tap( ({token}: any) => this.jwtService.createToken(token)),
         map(({token}: any) => {
-          console.log(token);
-          this.jwtService.createToken(token);
           return signInSuccess({token});
-        })
+          }
+        ),
+        catchError(({err}) => of(signInError( err ), console.log('xuy',err.statusText)))
       )
-    ),
-    catchError((err) => of(signInError(err)))
+    )
   );
   //  It is working
   // public signIn$: Observable<Action> = createEffect(() =>
@@ -148,10 +149,10 @@ export class AuthEffects {
         map((data) => {
           console.log(data);
           return signUpSuccess(data);
-        })
+        }),
+        catchError((err) => of(signUpError(err)))
       );
-    }),
-    catchError((err) => of(signUpError(err)))
+    })
   );
   // @Effect({ dispatch: false })
   // public updateUser: Observable<void> = this.actions.pipe(

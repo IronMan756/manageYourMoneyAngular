@@ -20,7 +20,7 @@ export class AuthService {
     return this.http.post('/auth/sign-up', value);
   }
   public signIn(formValue: ILogIn ){
-    console.log(formValue)
+    // console.log(formValue)
     return this.http.post('/auth/sign-in', formValue);
   }
 }
