@@ -60,7 +60,7 @@ export class SignInComponent extends AbstractForm implements OnInit {
     // await this.store.dispatch(removeCategoryPending({categoryId: '5f01d81a1e4b50004b64f8d3'}));
     // this.store.dispatch(createTransactionPending({transaction}));
     // this.store.dispatch(getTransactionsPending());
-    this.store.dispatch(removeTransactionPending({transactionId: '5f01fb67ff5757006d965cba'}))
+    // this.store.dispatch(removeTransactionPending({transactionId: '5f01fb67ff5757006d965cba'}))
   }
   public signin() {
     if (this.form.valid) {

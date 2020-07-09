@@ -7,9 +7,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
-import {
-  MatDialogModule,
-} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
@@ -29,13 +27,11 @@ import { RouterEffects } from '../store/effects/router.effect';
 import { ExpencesService } from './services/expences.service';
 import { JwtService } from './services/jwt.service';
 import { PursesService } from './services/purses.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    HttpClientModule
-  ],
+  imports: [CommonModule, HttpClientModule, ToastrModule.forRoot()],
   exports: [
     CommonModule,
     MatCardModule,
@@ -51,7 +47,7 @@ import { PursesService } from './services/purses.service';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {
@@ -69,11 +65,11 @@ import { PursesService } from './services/purses.service';
     IncomesService,
     PursesService,
     CategoriesService,
-    TransactionsService
+    TransactionsService,
   ],
 })
 export class SharedModule {
-  public static forRoot(): ModuleWithProviders{
+  public static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
       providers: [

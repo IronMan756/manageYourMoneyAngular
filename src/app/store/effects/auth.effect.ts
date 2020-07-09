@@ -1,4 +1,3 @@
-import { ExpencesService } from './../../shared/services/expences.service';
 import { ILogIn } from './../../shared/interfaces/log-in.interface';
 import {
   signInSuccess,
@@ -26,6 +25,7 @@ import { signInPending } from '../actions/auth.actions';
 import { RouterEffects } from './router.effect';
 import { go } from '../actions/router.actions';
 import { JwtService } from '../../shared/services/jwt.service';
+import { ToastrService } from 'ngx-toastr';
 // import { IStore } from '../reducers';
 
 @Injectable()
@@ -36,6 +36,7 @@ export class AuthEffects {
     private routerEffects: RouterEffects,
     private authService: AuthService,
     private jwtService: JwtService,
+    private toasts: ToastrService,
     private store: Store<
       any
       // IStore
@@ -117,11 +118,15 @@ export class AuthEffects {
     switchMap(({ payload }) =>
       this.authService.signIn(payload).pipe(
         tap( ({token}: any) => this.jwtService.createToken(token)),
+        tap(() => this.toasts.success('You successfully logged in')),
         map(({token}: any) => {
           return signInSuccess({token});
           }
         ),
-        catchError(({err}) => of(signInError( err ), console.log('xuy',err.statusText)))
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(signInError(err));
+        })
       )
     )
   );
@@ -146,14 +151,17 @@ export class AuthEffects {
     ofType(signUpPending),
     switchMap(({ payload }) => {
       return this.authService.signUp(payload).pipe(
+        tap(() => this.toasts.success('You successfully Signed Up')),
         map((data) => {
-          console.log(data);
           return signUpSuccess(data);
         }),
-        catchError((err) => of(signUpError(err)))
+        catchError(({err}) => {
+        this.toasts.error(err.statusText);
+        return of(signUpError(err));
+        })
       );
-    })
-  );
+    }));
+  }
   // @Effect({ dispatch: false })
   // public updateUser: Observable<void> = this.actions.pipe(
   //   ofType(updateUser),
@@ -165,4 +173,3 @@ export class AuthEffects {
   //       .update(payload);
   //   }),
   // );
-}

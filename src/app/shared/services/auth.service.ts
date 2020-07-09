@@ -4,10 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ILogIn } from '../interfaces/log-in.interface';
 @Injectable()
 export class AuthService {
-
-  constructor(
-    public http: HttpClient
-    ) {}
+  constructor(public http: HttpClient) {}
 
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
@@ -16,11 +13,10 @@ export class AuthService {
     // !this.jwtHelper.isTokenExpired(token)
     return true;
   }
-  public signUp(value: any): Observable<any>{
+  public signUp(value: any): Observable<any> {
     return this.http.post('/auth/sign-up', value);
   }
-  public signIn(formValue: ILogIn ){
-    // console.log(formValue)
+  public signIn(formValue: ILogIn) {
     return this.http.post('/auth/sign-in', formValue);
   }
 }
