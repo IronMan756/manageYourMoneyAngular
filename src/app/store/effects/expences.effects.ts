@@ -33,10 +33,13 @@ export class ExpencesEffects {
         map((expences: IExpences[]) => {
           console.log(expences);
           return getExpencesSuccess({ expences });
+        }),
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(getExpencesError(err));
         })
       );
-    }),
-    catchError((err) => of(getExpencesError(err), console.log(err)))
+    })
   );
   @Effect()
   public createExpence$: Observable<any> = this.actions.pipe(
@@ -46,10 +49,13 @@ export class ExpencesEffects {
         tap(() => this.toasts.success('You successfully created new expense')),
         map(() => {
           return createExpenceSuccess(), getExpencesPending();
+        }),
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(createExpenceError(err), console.log(err));
         })
       );
-    }),
-    catchError((err) => of(createExpenceError(err), console.log(err)))
+    })
   );
 
   @Effect()
@@ -60,9 +66,12 @@ export class ExpencesEffects {
         tap(() => this.toasts.success('You successfully removed expense')),
         map(() => {
           return deleteExpenceSuccess();
+        }),
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(deleteExpenceError(err));
         })
       );
-    }),
-    catchError((err) => of(deleteExpenceError(err), console.log(err)))
+    })
   );
 }

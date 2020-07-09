@@ -31,10 +31,13 @@ export class TransactionsEffects {
       return this.transactionsServise.getTransactions().pipe(
         map((transactions) => {
           return getTransactionsSuccess({ transactions });
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(getTransactionsError(err));
         })
       );
-    }),
-    catchError((err) => of(getTransactionsError(err)))
+    })
   );
   @Effect()
   public createTransaction$: Observable<Action> = this.action.pipe(
@@ -45,7 +48,10 @@ export class TransactionsEffects {
           this.toasts.success('You successfully added new transaction')
         ),
         map(() => createTransactionSuccess()),
-        catchError((err) => of(createTransactionError(err)))
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(createTransactionError(err));
+        })
       );
     })
   );
@@ -56,7 +62,10 @@ export class TransactionsEffects {
       return this.transactionsServise.removeTransction(transactionId).pipe(
         tap(() => this.toasts.success('You successfully removed transaction')),
         map(() => removeTransactionSuccess()),
-        catchError((err) => of(removeTransactionError(err)))
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(removeTransactionError(err));
+        })
       );
     })
   );

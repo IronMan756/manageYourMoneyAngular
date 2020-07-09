@@ -33,10 +33,13 @@ export class IncomesEffects {
         map((incomes: IIncomes[]) => {
           console.log(incomes);
           return getIncomesSuccess({ incomes });
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(getIncomesError(err));
         })
       );
-    }),
-    catchError((err) => of(getIncomesError(err)))
+    })
   );
   @Effect()
   public createIncome$: Observable<Action> = this.action.pipe(
@@ -46,10 +49,13 @@ export class IncomesEffects {
         tap(() => this.toasts.success('You successfully added new income')),
         map(() => {
           return createIncomeSuccess();
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(createIncomesError(err));
         })
       );
-    }),
-    catchError((err) => of(createIncomesError(err)))
+    })
   );
   @Effect()
   public removeIncome$: Observable<Action> = this.action.pipe(
@@ -59,9 +65,12 @@ export class IncomesEffects {
         tap(() => this.toasts.success('You successfully removed income')),
         map(() => {
           return removeIncomeSuccess();
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(removeIncomesError(err));
         })
       );
-    }),
-    catchError((err) => of(removeIncomesError(err)))
+    })
   );
 }

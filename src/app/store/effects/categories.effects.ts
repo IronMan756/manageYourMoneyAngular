@@ -20,7 +20,6 @@ import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class CategoriesEffects {
-  [x: string]: any;
   constructor(
     private action: Actions,
     private categoriesService: CategoriesService,
@@ -33,10 +32,13 @@ export class CategoriesEffects {
       return this.categoriesService.getCategories().pipe(
         map((categories: ICategories[]) => {
           return getCategoriesSuccess({ categories });
+        }),
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(getCategoriesError(err));
         })
       );
-    }),
-    catchError((err) => of(getCategoriesError(err)))
+    })
   );
   @Effect()
   public createCategory$: Observable<Action> = this.action.pipe(
@@ -46,10 +48,13 @@ export class CategoriesEffects {
         tap(() => this.toasts.success('You successfully created category')),
         map(() => {
           return createCategorySuccess();
+        }),
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(createCategoryError(err));
         })
       );
-    }),
-    catchError((err) => of(createCategoryError(err)))
+    })
   );
   @Effect()
   public removeCategory$: Observable<Action> = this.action.pipe(
@@ -59,9 +64,12 @@ export class CategoriesEffects {
         tap(() => this.toasts.success('You successfully removed category')),
         map(() => {
           return removeCategorySuccess();
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(removeCategoryError(err));
         })
       );
-    }),
-    catchError((err) => of(removeCategoryError(err)))
+    })
   );
 }

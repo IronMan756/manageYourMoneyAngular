@@ -33,10 +33,13 @@ export class PursesEffects {
         map((purses) => {
           console.log(purses);
           return getPursesSuccess({ purses });
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(getPursesError(err));
         })
       );
-    }),
-    catchError((err) => of(getPursesError(err)))
+    })
   );
   @Effect()
   public createPurse$: Observable<Action> = this.action.pipe(
@@ -46,10 +49,13 @@ export class PursesEffects {
         tap(() => this.toasts.success('You successfully added new purse')),
         map((_) => {
           return createPurseSuccess();
+        }),
+        catchError(({ err }) => {
+          this.toasts.error(err.statusText);
+          return of(createPursesError(err));
         })
       );
-    }),
-    catchError((err) => of(createPursesError(err)))
+    })
   );
   @Effect()
   public removePurse$: Observable<Action> = this.action.pipe(

@@ -17,7 +17,6 @@ import {
   catchError,
   mergeMap,
   withLatestFrom,
-  finalize,
   tap,
 } from 'rxjs/operators';
 
@@ -118,23 +117,18 @@ export class AuthEffects {
     ofType(signInPending),
     switchMap(({ payload }) =>
       this.authService.signIn(payload).pipe(
+        tap( ({token}: any) => this.jwtService.createToken(token)),
         tap(() => this.toasts.success('You successfully logged in')),
-        map(({ token }: any) => {
-          this.jwtService.createToken(token);
-          return signInSuccess({ token });
-        }),
-        catchError((_) => {
-          console.log('error');
-          this.toasts.error('Internal Server Error');
-          return of(signInError(_));
+        map(({token}: any) => {
+          return signInSuccess({token});
+          }
+        ),
+        catchError(({err}) => {
+          this.toasts.error(err.statusText);
+          return of(signInError(err));
         })
       )
-    ),
-    catchError((_) => {
-      console.log('error');
-      this.toasts.error('Internal Server Error');
-      return of(signInError(_));
-    })
+    )
   );
   //  It is working
   // public signIn$: Observable<Action> = createEffect(() =>
@@ -160,11 +154,14 @@ export class AuthEffects {
         tap(() => this.toasts.success('You successfully Signed Up')),
         map((data) => {
           return signUpSuccess(data);
+        }),
+        catchError(({err}) => {
+        this.toasts.error(err.statusText);
+        return of(signUpError(err));
         })
       );
-    }),
-    catchError((err) => of(signUpError(err)))
-  );
+    }));
+  }
   // @Effect({ dispatch: false })
   // public updateUser: Observable<void> = this.actions.pipe(
   //   ofType(updateUser),
@@ -176,4 +173,3 @@ export class AuthEffects {
   //       .update(payload);
   //   }),
   // );
-}
