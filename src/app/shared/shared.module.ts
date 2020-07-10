@@ -1,3 +1,4 @@
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TransactionsService } from './services/transactionsServise';
 import { CategoriesService } from './services/categories.service';
 import { IncomesService } from './services/incomes.service';
@@ -30,7 +31,9 @@ import { PursesService } from './services/purses.service';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    SidebarComponent
+  ],
   imports: [CommonModule, HttpClientModule, ToastrModule.forRoot()],
   exports: [
     CommonModule,
@@ -48,6 +51,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     FlexLayoutModule,
     HttpClientModule,
+    SidebarComponent
   ],
   providers: [
     {

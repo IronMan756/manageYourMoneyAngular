@@ -1,3 +1,4 @@
+import { RouterEffects } from './router.effect';
 import { TransactionsEffects } from './transactionsEffects';
 import { AuthEffects } from './auth.effect';
 import { ExpencesEffects } from './expences.effects';
@@ -12,5 +13,6 @@ export const effects = [
     IncomesEffects,
     PursesEffects,
     CategoriesEffects,
-    TransactionsEffects
+    TransactionsEffects,
+    RouterEffects
 ];

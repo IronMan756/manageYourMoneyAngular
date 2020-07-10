@@ -120,6 +120,12 @@ export class AuthEffects {
         tap( ({token}: any) => this.jwtService.createToken(token)),
         tap(() => this.toasts.success('You successfully logged in')),
         map(({token}: any) => {
+          console.log(0)
+          this.store.dispatch(
+            go({
+              path: ['/dashboard']
+            })
+          );
           return signInSuccess({token});
           }
         ),
