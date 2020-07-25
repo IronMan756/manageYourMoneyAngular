@@ -13,11 +13,13 @@ import { SharedModule } from './shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { effects } from './store/effects';
 
+import { AuthGuard } from './shared/services/auth.quard';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { effects } from './store/effects';
     SharedModule.forRoot(),
     EffectsModule.forRoot(effects)
   ],
-  providers: [],
+  providers: [ AuthGuard ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

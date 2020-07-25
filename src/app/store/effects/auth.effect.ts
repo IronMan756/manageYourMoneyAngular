@@ -120,7 +120,8 @@ export class AuthEffects {
         tap( ({token}: any) => this.jwtService.createToken(token)),
         tap(() => this.toasts.success('You successfully logged in')),
         map(({token}: any) => {
-          return signInSuccess({token});
+          return signInSuccess({token}), go({ path: ['/dashboard'] });
+
           }
         ),
         catchError(({err}) => {
