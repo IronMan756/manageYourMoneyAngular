@@ -1,0 +1,20 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+.center-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}  
+.button-wrapper{
+    margin: 0 auto;
+    width:40%;
+    display: flex;
+    justify-content: space-around;
+}  
+.new-income{
+    background: #b2fcb2;
+}
+.new-expence{
+    background: #feb8b8;
+}

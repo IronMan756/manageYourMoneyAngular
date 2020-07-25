@@ -28,9 +28,9 @@ import { ExpencesService } from './services/expences.service';
 import { JwtService } from './services/jwt.service';
 import { PursesService } from './services/purses.service';
 import { ToastrModule } from 'ngx-toastr';
-
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [CommonModule, HttpClientModule, ToastrModule.forRoot()],
   exports: [
     CommonModule,
