@@ -1,0 +1,16 @@
+<mat-sidenav-container>
+  <mat-sidenav #drawer mode="side">
+    <mat-list role="list">
+      <mat-list-item role="listitem" [routerLink]="['']">
+        <mat-icon>dashboard</mat-icon>Calendar
+      </mat-list-item>
+      <mat-list-item role="listitem" [routerLink]="['profile']">
+        <mat-icon>notifications_active</mat-icon>Profile
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!--    <div #container></div>-->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -4,11 +4,12 @@ import { DashboardComponent } from './dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, FooterComponent, HeaderComponent],
+  declarations: [DashboardComponent, FooterComponent, HeaderComponent, SidebarComponent],
   imports: [
     SharedModule,
     RouterModule.forChild([
